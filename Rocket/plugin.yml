@@ -1,0 +1,19 @@
+name: Rocket
+author: Mauricius17 & Paul2708
+version: Beta 2.0
+
+main: de.mauricius17.rocket.system.Rocket
+
+commands:
+  rocket:
+    description: Get rocket item
+    usage: /rocket
+  parachute:
+    description: Get parachute item
+    usage: /parachute
+
+permissions:
+  rocket.use:
+    default: false
+  rocket.command:
+    default: false
