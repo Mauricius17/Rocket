@@ -1,4 +1,4 @@
-package de.mauricius17.rocket.utils;
+package de.mauricius17.rocket.enums;
 
 public enum Permissions {
 

@@ -9,8 +9,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
+import de.mauricius17.rocket.enums.CertainWorlds;
+import de.mauricius17.rocket.enums.Permissions;
 import de.mauricius17.rocket.parachute.Parachute;
-import de.mauricius17.rocket.utils.Permissions;
 import de.mauricius17.rocket.utils.Utils;
 
 public class ParachuteInteractListener implements Listener {
@@ -23,7 +24,7 @@ public class ParachuteInteractListener implements Listener {
 			if(e.getItem() != null && e.getItem().hasItemMeta()) {
 				if(e.getItem().getItemMeta().getDisplayName().equals(Utils.getParachuteName()) && e.getItem().getType().equals(Utils.getParachuteItem())) {
 					if(p.hasPermission(Permissions.PERMISSIONUSEROCKET.getPermission())) {						
-						if(Utils.getCertainWorlds()) {
+						if(Utils.getCertainWorlds().equals(CertainWorlds.ON)) {
 							String[] worlds = Utils.getWorlds().split(",");
 							
 							for(String w : worlds) {

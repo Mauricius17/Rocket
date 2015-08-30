@@ -7,8 +7,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import de.mauricius17.rocket.enums.Permissions;
 import de.mauricius17.rocket.utils.Items;
-import de.mauricius17.rocket.utils.Permissions;
 import de.mauricius17.rocket.utils.Utils;
 
 public class ParachuteCommand implements CommandExecutor {

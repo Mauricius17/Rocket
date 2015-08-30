@@ -8,6 +8,7 @@ import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
+import de.mauricius17.rocket.enums.CertainWorlds;
 import de.mauricius17.rocket.parachute.Parachute;
 import de.mauricius17.rocket.rocket.Rocket;
 
@@ -20,8 +21,6 @@ public class Utils {
 	private static FileConfiguration messages = YamlConfiguration.loadConfiguration(messageFile);
 	
 	private static String prefix = "", noPermission = "", console = "", rocketName = "", worlds = "", parachuteName = "";
-	
-	private static Boolean certainWorlds = false;
 	
 	private static double height = 1.5D, multiply = 1.5D, fast = -0.2D, slow = -0.05D, forwardSpeed = 0.2D;
 	
@@ -36,6 +35,16 @@ public class Utils {
 	private static Material rocketItem = Material.LEVER;
 	private static Material parachuteMaterial = Material.WEB;
 	private static Material parachuteItem = Material.WEB;
+	
+	private static CertainWorlds certainWorlds = CertainWorlds.OFF;
+	
+	public static CertainWorlds getCertainWorlds() {
+		return certainWorlds;
+	}
+	
+	public static void setCertainWorlds(CertainWorlds certainWorlds) {
+		Utils.certainWorlds = certainWorlds;
+	}
 	
 	public static Material getParachuteItem() {
 		return parachuteItem;
@@ -91,14 +100,6 @@ public class Utils {
 	
 	public static void setWorlds(String worlds) {
 		Utils.worlds = worlds;
-	}
-	
-	public static void setCertainWorlds(Boolean certainWorlds) {
-		Utils.certainWorlds = certainWorlds;
-	}
-	
-	public static Boolean getCertainWorlds() {
-		return certainWorlds;
 	}
 	
 	public static String getRocketName() {
