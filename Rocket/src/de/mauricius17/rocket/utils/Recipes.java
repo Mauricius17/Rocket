@@ -72,6 +72,10 @@ public class Recipes {
 		public Material getMaterial() {
 			return material;
 		}
+		
+		public String getChar() {
+			return Character.toString(name);
+		}
 	}
 	
 	public enum RocketRecipes {
@@ -105,6 +109,10 @@ public class Recipes {
 		
 		public Material getMaterial() {
 			return material;
+		}
+		
+		public String getChar() {
+			return Character.toString(name);
 		}
 	}
 }

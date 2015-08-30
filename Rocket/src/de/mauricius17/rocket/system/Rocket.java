@@ -15,6 +15,8 @@ import de.mauricius17.rocket.commands.RocketCommand;
 import de.mauricius17.rocket.enums.CertainWorlds;
 import de.mauricius17.rocket.utils.Items;
 import de.mauricius17.rocket.utils.Recipes;
+import de.mauricius17.rocket.utils.Recipes.ParachuteRecipes;
+import de.mauricius17.rocket.utils.Recipes.RocketRecipes;
 import de.mauricius17.rocket.utils.Utils;
 
 public class Rocket extends JavaPlugin {
@@ -53,29 +55,13 @@ public class Rocket extends JavaPlugin {
 		Utils.setParachuteMaterial(Items.getMaterial(Utils.getConfig().getString("parachute.block.type")));
 		Utils.setParachuteName(ChatColor.translateAlternateColorCodes('&', Utils.getConfig().getString("parachute.item.name")));
 		
-		Recipes.ParachuteRecipes.A.setMaterial(Items.getMaterial(Utils.getConfig().getString("parachute.recipe.A")));
-		Recipes.ParachuteRecipes.B.setMaterial(Items.getMaterial(Utils.getConfig().getString("parachute.recipe.B")));
-		Recipes.ParachuteRecipes.C.setMaterial(Items.getMaterial(Utils.getConfig().getString("parachute.recipe.C")));
+		for(ParachuteRecipes recipes : Recipes.ParachuteRecipes.values()) {
+			recipes.setMaterial(Items.getMaterial(Utils.getConfig().getString("parachute.recipe." + recipes.getChar().toUpperCase())));
+		}
 		
-		Recipes.ParachuteRecipes.D.setMaterial(Items.getMaterial(Utils.getConfig().getString("parachute.recipe.D")));
-		Recipes.ParachuteRecipes.E.setMaterial(Items.getMaterial(Utils.getConfig().getString("parachute.recipe.E")));
-		Recipes.ParachuteRecipes.F.setMaterial(Items.getMaterial(Utils.getConfig().getString("parachute.recipe.F")));
-		
-		Recipes.ParachuteRecipes.G.setMaterial(Items.getMaterial(Utils.getConfig().getString("parachute.recipe.G")));
-		Recipes.ParachuteRecipes.H.setMaterial(Items.getMaterial(Utils.getConfig().getString("parachute.recipe.H")));
-		Recipes.ParachuteRecipes.I.setMaterial(Items.getMaterial(Utils.getConfig().getString("parachute.recipe.I")));
-		
-		Recipes.RocketRecipes.A.setMaterial(Items.getMaterial(Utils.getConfig().getString("rocket.recipe.A")));
-		Recipes.RocketRecipes.B.setMaterial(Items.getMaterial(Utils.getConfig().getString("rocket.recipe.B")));
-		Recipes.RocketRecipes.C.setMaterial(Items.getMaterial(Utils.getConfig().getString("rocket.recipe.C")));
-		
-		Recipes.RocketRecipes.D.setMaterial(Items.getMaterial(Utils.getConfig().getString("rocket.recipe.D")));
-		Recipes.RocketRecipes.E.setMaterial(Items.getMaterial(Utils.getConfig().getString("rocket.recipe.E")));
-		Recipes.RocketRecipes.F.setMaterial(Items.getMaterial(Utils.getConfig().getString("rocket.recipe.F")));
-		
-		Recipes.RocketRecipes.G.setMaterial(Items.getMaterial(Utils.getConfig().getString("rocket.recipe.G")));
-		Recipes.RocketRecipes.H.setMaterial(Items.getMaterial(Utils.getConfig().getString("rocket.recipe.H")));
-		Recipes.RocketRecipes.I.setMaterial(Items.getMaterial(Utils.getConfig().getString("rocket.recipe.I")));
+		for(RocketRecipes recipes : Recipes.RocketRecipes.values()) {
+			recipes.setMaterial(Items.getMaterial(Utils.getConfig().getString("rocket.recipe." + recipes.getChar().toUpperCase())));
+		}
 		
 		if(Utils.getConfig().getBoolean("recipes.enable")) {
 			Recipes.createParachuteRecipe();
