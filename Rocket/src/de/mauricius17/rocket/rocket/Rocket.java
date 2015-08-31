@@ -53,9 +53,10 @@ public class Rocket {
 		this.seat.setPassenger(p);
 	}
 	
-	public void start(int blockHigh, RocketInterface onRocketDestroy) {
-		if(blockHigh > 150) blockHigh = 150;
-		
+	public void start(int blockHigh, RocketInterface onRocketDestroy) {		
+		System.out.println(Utils.getHeightOfTrip());
+		System.out.println(blockHigh);
+		System.out.println(blocks[0].getLocation().getY());
 		final int y = blockHigh + blocks[0].getLocation().getBlockY();
 		
 		this.taskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(instance, new Runnable() {
@@ -101,8 +102,8 @@ public class Rocket {
 							return;
 						}
 					}
-					
-					if(loc.getBlock().getType() != Material.AIR) {
+				
+					if(p.getLocation().getY() >= 250) {
 						Bukkit.getScheduler().scheduleSyncDelayedTask(instance, new Runnable() {
 							
 							@Override
@@ -148,16 +149,16 @@ public class Rocket {
 	
 	@SuppressWarnings("deprecation")
 	public void despawn() {
-		if(taskID != -1) {
-			Bukkit.getScheduler().cancelTask(taskID);
-		}
-		
 		for(FallingBlock rocket : blocks) {
 			rocket.remove();
 		}
 		
 		if(Utils.getRocket().containsKey(p.getUniqueId())) {
 			Utils.getRocket().remove(p.getUniqueId());
+		}
+		
+		if(taskID != -1) {
+			Bukkit.getScheduler().cancelTask(taskID);
 		}
 		
 		if(thread != null && thread.isAlive()) {

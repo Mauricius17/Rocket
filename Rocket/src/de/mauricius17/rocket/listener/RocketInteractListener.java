@@ -36,47 +36,33 @@ public class RocketInteractListener implements Listener {
 											Rocket rocket = new Rocket(de.mauricius17.rocket.system.Rocket.getInstance(), p);
 											rocket.build(p.getLocation());
 											rocket.addPlayer();
+																													
+											rocket.start(Utils.getHeightOfTrip(), new RocketInterface() {
+												
+												@SuppressWarnings("deprecation")
+												@Override
+												public void onRocketDestroy() {
+													Block b = p.getLocation().getBlock();
+							
+													for(int i = 0; i < 3; i++) {
+														if(b.getRelative(BlockFace.DOWN).getTypeId() == 0) {
+															b = b.getRelative(BlockFace.DOWN);
+															
+															if(i == 2) {
+																Parachute para = new Parachute(p, p.getLocation().getBlock());
+																para.open();
+																Utils.getParachute().put(p.getUniqueId(), para);
+															}
+														} else {
+															i = 3;
+														}
+													}
+												}
+											});
 											
 											Utils.getRocket().put(p.getUniqueId(), rocket);
 											
-											try {
-												if(p.getLocation().getY() + Utils.getHeightOfTrip() > 265) Utils.setHeightOfTrip(265);
-												
-												rocket.start(Utils.getHeightOfTrip(), new RocketInterface() {
-													
-													@SuppressWarnings("deprecation")
-													@Override
-													public void onRocketDestroy() {
-														Block b = p.getLocation().getBlock();
-														
-														if(b.getLocation().getY() >= 250) {
-															rocket.despawn();
-															Parachute para = new Parachute(p, p.getLocation().getBlock());
-															para.open();
-															Utils.getParachute().put(p.getUniqueId(), para);
-														}
-														
-														for(int i = 0; i < 3; i++) {
-															if(b.getRelative(BlockFace.DOWN).getTypeId() == 0) {
-																b = b.getRelative(BlockFace.DOWN);
-																
-																if(i == 2) {
-																	Parachute para = new Parachute(p, p.getLocation().getBlock());
-																	para.open();
-																	Utils.getParachute().put(p.getUniqueId(), para);
-																}
-															} else {
-																i = 3;
-															}
-														}
-													}
-												});	
-												
-												p.sendMessage(Utils.getPrefix() + ChatColor.translateAlternateColorCodes('&', Utils.getMessages().getString("rocket.started")));
-											} catch (NumberFormatException ex) {
-												p.sendMessage("§4You have to choose numbers if you want to set the right high!");
-												ex.printStackTrace();
-											}
+											p.sendMessage(Utils.getPrefix() + ChatColor.translateAlternateColorCodes('&', Utils.getMessages().getString("rocket.started")));
 										} else {
 											p.sendMessage(Utils.getPrefix() + ChatColor.translateAlternateColorCodes('&', Utils.getMessages().getString("rocket.start_while_parachute_is_open")));
 										}
@@ -93,40 +79,33 @@ public class RocketInteractListener implements Listener {
 									Rocket rocket = new Rocket(de.mauricius17.rocket.system.Rocket.getInstance(), p);
 									rocket.build(p.getLocation());
 									rocket.addPlayer();
+																											
+									rocket.start(Utils.getHeightOfTrip(), new RocketInterface() {
+										
+										@SuppressWarnings("deprecation")
+										@Override
+										public void onRocketDestroy() {
+											Block b = p.getLocation().getBlock();
+					
+											for(int i = 0; i < 3; i++) {
+												if(b.getRelative(BlockFace.DOWN).getTypeId() == 0) {
+													b = b.getRelative(BlockFace.DOWN);
+													
+													if(i == 2) {
+														Parachute para = new Parachute(p, p.getLocation().getBlock());
+														para.open();
+														Utils.getParachute().put(p.getUniqueId(), para);
+													}
+												} else {
+													i = 3;
+												}
+											}
+										}
+									});
 									
 									Utils.getRocket().put(p.getUniqueId(), rocket);
 									
-									try {
-										if(p.getLocation().getY() + Utils.getHeightOfTrip() > 265) Utils.setHeightOfTrip(265);
-										
-										rocket.start(Utils.getHeightOfTrip(), new RocketInterface() {
-											
-											@SuppressWarnings("deprecation")
-											@Override
-											public void onRocketDestroy() {
-												Block b = p.getLocation().getBlock();
-												
-												for(int i = 0; i < 3; i++) {
-													if(b.getRelative(BlockFace.DOWN).getTypeId() == 0) {
-														b = b.getRelative(BlockFace.DOWN);
-														
-														if(i == 2) {
-															Parachute para = new Parachute(p, p.getLocation().getBlock());
-															para.open();
-															Utils.getParachute().put(p.getUniqueId(), para);
-														}
-													} else {
-														i = 3;
-													}
-												}
-											}
-										});	
-										
-										p.sendMessage(Utils.getPrefix() + ChatColor.translateAlternateColorCodes('&', Utils.getMessages().getString("rocket.started")));
-									} catch (NumberFormatException ex) {
-										p.sendMessage("§4You have to choose numbers if you want to set the right high!");
-										ex.printStackTrace();
-									}
+									p.sendMessage(Utils.getPrefix() + ChatColor.translateAlternateColorCodes('&', Utils.getMessages().getString("rocket.started")));
 								} else {
 									p.sendMessage(Utils.getPrefix() + ChatColor.translateAlternateColorCodes('&', Utils.getMessages().getString("rocket.start_while_parachute_is_open")));
 								}

@@ -18,5 +18,4 @@ public class ToggleSneakListener implements Listener {
 			Utils.getRocket().remove(p.getUniqueId());
 		}
 	}
-	
 }

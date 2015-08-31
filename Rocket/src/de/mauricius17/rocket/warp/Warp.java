@@ -81,49 +81,34 @@ public class Warp {
 							Rocket rocket = new Rocket(de.mauricius17.rocket.system.Rocket.getInstance(), p);
 							rocket.build(p.getLocation());
 							rocket.addPlayer();
+																									
+							rocket.start(Utils.getHeightOfTrip(), new RocketInterface() {
+								
+								@SuppressWarnings("deprecation")
+								@Override
+								public void onRocketDestroy() {
+									Block b = p.getLocation().getBlock();
+			
+									for(int i = 0; i < 3; i++) {
+										if(b.getRelative(BlockFace.DOWN).getTypeId() == 0) {
+											b = b.getRelative(BlockFace.DOWN);
+											
+											if(i == 2) {
+												p.teleport(location);
+												p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20, 1, false));
+												p.playSound(p.getLocation(), Sound.ENDERMAN_TELEPORT, 1F, 1F);
+												p.sendMessage(ChatColor.translateAlternateColorCodes('&', Utils.getPrefix() + Utils.getMessages().getString("command.warp.teleport.successful")).replace("[WARP]", name));
+											}
+										} else {
+											i = 3;
+										}
+									}
+								}
+							});
 							
 							Utils.getRocket().put(p.getUniqueId(), rocket);
 							
-							try {
-								if(p.getLocation().getY() + Utils.getHeightOfTrip() > 265) Utils.setHeightOfTrip(265);
-								
-								rocket.start(Utils.getHeightOfTrip(), new RocketInterface() {
-									
-									@SuppressWarnings("deprecation")
-									@Override
-									public void onRocketDestroy() {
-										Block b = p.getLocation().getBlock();
-										
-										if(b.getLocation().getY() >= 250) {
-											rocket.despawn();
-											p.teleport(location);
-											p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20, 1, false));
-											p.playSound(p.getLocation(), Sound.ENDERMAN_TELEPORT, 1F, 1F);
-											p.sendMessage(ChatColor.translateAlternateColorCodes('&', Utils.getPrefix() + Utils.getMessages().getString("command.warp.teleport.successful")).replace("[WARP]", name));
-										}
-										
-										for(int i = 0; i < 3; i++) {
-											if(b.getRelative(BlockFace.DOWN).getTypeId() == 0) {
-												b = b.getRelative(BlockFace.DOWN);
-												
-												if(i == 2) {
-													p.teleport(location);
-													p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20, 1, false));
-													p.playSound(p.getLocation(), Sound.ENDERMAN_TELEPORT, 1F, 1F);
-													p.sendMessage(ChatColor.translateAlternateColorCodes('&', Utils.getPrefix() + Utils.getMessages().getString("command.warp.teleport.successful")).replace("[WARP]", name));
-												}
-											} else {
-												i = 3;
-											}
-										}
-									}
-								});	
-								
-								p.sendMessage(Utils.getPrefix() + ChatColor.translateAlternateColorCodes('&', Utils.getMessages().getString("rocket.started")));
-							} catch (NumberFormatException ex) {
-								p.sendMessage("§4You have to choose numbers if you want to set the right high!");
-								ex.printStackTrace();
-							}
+							p.sendMessage(Utils.getPrefix() + ChatColor.translateAlternateColorCodes('&', Utils.getMessages().getString("rocket.started")));
 						} else {
 							p.sendMessage(Utils.getPrefix() + ChatColor.translateAlternateColorCodes('&', Utils.getMessages().getString("rocket.start_while_parachute_is_open")));
 						}
@@ -132,8 +117,6 @@ public class Warp {
 					}
 					
 					return;
-				} else {
-					p.sendMessage(Utils.getPrefix() + ChatColor.translateAlternateColorCodes('&', Utils.getMessages().getString("command.warp.teleport.failed_certain_worlds")));
 				}
 			}
 		} else {	
@@ -142,48 +125,41 @@ public class Warp {
 					Rocket rocket = new Rocket(de.mauricius17.rocket.system.Rocket.getInstance(), p);
 					rocket.build(p.getLocation());
 					rocket.addPlayer();
+																							
+					rocket.start(Utils.getHeightOfTrip(), new RocketInterface() {
+						
+						@SuppressWarnings("deprecation")
+						@Override
+						public void onRocketDestroy() {
+							Block b = p.getLocation().getBlock();
+	
+							for(int i = 0; i < 3; i++) {
+								if(b.getRelative(BlockFace.DOWN).getTypeId() == 0) {
+									b = b.getRelative(BlockFace.DOWN);
+									
+									if(i == 2) {
+										p.teleport(location);
+										p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20, 1, false));
+										p.playSound(p.getLocation(), Sound.ENDERMAN_TELEPORT, 1F, 1F);
+										p.sendMessage(ChatColor.translateAlternateColorCodes('&', Utils.getPrefix() + Utils.getMessages().getString("command.warp.teleport.successful")).replace("[WARP]", name));
+									}
+								} else {
+									i = 3;
+								}
+							}
+						}
+					});
 					
 					Utils.getRocket().put(p.getUniqueId(), rocket);
 					
-					try {
-						if(p.getLocation().getY() + Utils.getHeightOfTrip() > 265) Utils.setHeightOfTrip(265);
-						
-						rocket.start(Utils.getHeightOfTrip(), new RocketInterface() {
-							
-							@SuppressWarnings("deprecation")
-							@Override
-							public void onRocketDestroy() {
-								Block b = p.getLocation().getBlock();
-								
-								for(int i = 0; i < 3; i++) {
-									if(b.getRelative(BlockFace.DOWN).getTypeId() == 0) {
-										b = b.getRelative(BlockFace.DOWN);
-										
-										if(i == 2) {
-											p.teleport(location);
-											p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20, 1, false));
-											p.playSound(p.getLocation(), Sound.ENDERMAN_TELEPORT, 1F, 1F);
-											p.sendMessage(ChatColor.translateAlternateColorCodes('&', Utils.getPrefix() + Utils.getMessages().getString("command.warp.teleport.successful")).replace("[WARP]", name));
-										}
-									} else {
-										i = 3;
-									}
-								}
-							}
-						});	
-						
-						p.sendMessage(Utils.getPrefix() + ChatColor.translateAlternateColorCodes('&', Utils.getMessages().getString("rocket.started")));
-					} catch (NumberFormatException ex) {
-						p.sendMessage("§4You have to choose numbers if you want to set the right high!");
-						ex.printStackTrace();
-					}
+					p.sendMessage(Utils.getPrefix() + ChatColor.translateAlternateColorCodes('&', Utils.getMessages().getString("rocket.started")));
 				} else {
 					p.sendMessage(Utils.getPrefix() + ChatColor.translateAlternateColorCodes('&', Utils.getMessages().getString("rocket.start_while_parachute_is_open")));
 				}
 			} else {
 				p.sendMessage(Utils.getPrefix() + ChatColor.translateAlternateColorCodes('&', Utils.getMessages().getString("rocket.already_started")));
 			}
-		}
+		}	
 	}
 	
 	public boolean remove() {
