@@ -44,14 +44,21 @@ public class RocketCommand implements CommandExecutor {
 			
 			if(args[0].equalsIgnoreCase("list")) {
 				if(p.hasPermission(Permissions.LISTWARPS.getPermission())) {
-					String warps = "";
+					StringBuilder sb = new StringBuilder();
 					
+					int i = 0;
 					for(Warp w : Utils.getWarps()) {
-						warps = warps + w.getName() + ",";	
+						if(i == 1) {
+							sb.append(", ");
+						} else {
+							i = 1;
+						}
+						
+						sb.append(w.getName());
 					}
 					
 					p.sendMessage(ChatColor.translateAlternateColorCodes('&', Utils.getMessages().getString("command.warp.list.header")));
-					p.sendMessage(ChatColor.translateAlternateColorCodes('&', Utils.getMessages().getString("command.warp.list.line01")).replace("[WARPS]", warps));	
+					p.sendMessage(ChatColor.translateAlternateColorCodes('&', Utils.getMessages().getString("command.warp.list.line01")).replace("[WARPS]", sb.toString()));	
 				} else {
 					p.sendMessage(Utils.getPrefix() + Utils.getNoPermission());
 				}
