@@ -1,6 +1,6 @@
 name: Rocket
 author: Mauricius17 & Paul2708
-version: Beta 3.1
+version: Beta 4.0
 
 main: de.mauricius17.rocket.system.Rocket
 
@@ -15,5 +15,17 @@ commands:
 permissions:
   rocket.use:
     default: false
-  rocket.command:
+  parachute.use:
+    default: false
+  rocket.item:
+    default: false
+  parachute.item:
+    default: false
+  rocket.warp.list:
+    default: false
+  rocket.warp.set:
+    default: false
+  rocket.warp.remove:
+    default: false
+  rocket.warp.teleport:
     default: false

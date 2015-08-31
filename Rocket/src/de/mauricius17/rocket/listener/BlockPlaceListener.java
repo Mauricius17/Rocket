@@ -18,7 +18,7 @@ public class BlockPlaceListener implements Listener {
 		if(e.getItemInHand() != null && e.getItemInHand().hasItemMeta()) {
 			if(e.getItemInHand().getType().equals(Utils.getRocketItem())) {
 				if(e.getItemInHand().getItemMeta().getDisplayName().equals(Utils.getRocketName())) {
-					if(p.hasPermission(Permissions.PERMISSIONUSEROCKET.getPermission())) {
+					if(p.hasPermission(Permissions.USEROCKET.getPermission())) {
 						if(Utils.getCertainWorlds().equals(CertainWorlds.ON)) {
 							String[] worlds = Utils.getWorlds().split(",");
 							
@@ -36,7 +36,7 @@ public class BlockPlaceListener implements Listener {
 			
 			if(e.getItemInHand().getType().equals(Utils.getParachuteItem())) {
 				if(p.getItemInHand().getItemMeta().getDisplayName().equals(Utils.getParachuteName())) {
-					if(p.hasPermission(Permissions.PERMISSIONUSEROCKET.getPermission())) {
+					if(p.hasPermission(Permissions.USEPARACHUTE.getPermission())) {
 						if(Utils.getCertainWorlds().equals(CertainWorlds.ON)) {
 							String[] worlds = Utils.getWorlds().split(",");
 							

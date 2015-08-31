@@ -1,7 +1,9 @@
 package de.mauricius17.rocket.utils;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 import org.bukkit.Material;
@@ -11,9 +13,13 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import de.mauricius17.rocket.enums.CertainWorlds;
 import de.mauricius17.rocket.parachute.Parachute;
 import de.mauricius17.rocket.rocket.Rocket;
+import de.mauricius17.rocket.warp.Warp;
 
 public class Utils {
 
+	private static File warpFile = new File("plugins/Rocket", "warps.yml");
+	private static FileConfiguration warpsConfiguration = YamlConfiguration.loadConfiguration(warpFile);
+	
 	private static File configFile = new File("plugins/Rocket", "config.yml");
 	private static FileConfiguration config = YamlConfiguration.loadConfiguration(configFile);
 	
@@ -26,6 +32,8 @@ public class Utils {
 	
 	private static int heightOfTrip = 0;
 	
+	private static List<Warp> warps = new ArrayList<>();
+	
 	private static HashMap<UUID, Rocket> rocket = new HashMap<>();
 	private static HashMap<UUID, Parachute> parachute = new HashMap<>();
 
@@ -37,6 +45,18 @@ public class Utils {
 	private static Material parachuteItem = Material.WEB;
 	
 	private static CertainWorlds certainWorlds = CertainWorlds.OFF;
+	
+	public static List<Warp> getWarps() {
+		return warps;
+	}
+	
+	public static FileConfiguration getWarpsConfiguration() {
+		return warpsConfiguration;
+	}
+	
+	public static File getWarpFile() {
+		return warpFile;
+	}
 	
 	public static CertainWorlds getCertainWorlds() {
 		return certainWorlds;

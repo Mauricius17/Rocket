@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -18,6 +19,7 @@ import de.mauricius17.rocket.utils.Recipes;
 import de.mauricius17.rocket.utils.Recipes.ParachuteRecipes;
 import de.mauricius17.rocket.utils.Recipes.RocketRecipes;
 import de.mauricius17.rocket.utils.Utils;
+import de.mauricius17.rocket.warp.Warp;
 
 public class Rocket extends JavaPlugin {
 
@@ -29,6 +31,9 @@ public class Rocket extends JavaPlugin {
 		
 		loadConfig();
 		loadMessages();
+		loadWarpsConfig();
+		loadWarps();
+		
 		registerEvents();
 		registerCommands();
 		
@@ -63,7 +68,7 @@ public class Rocket extends JavaPlugin {
 			recipes.setMaterial(Items.getMaterial(Utils.getConfig().getString("rocket.recipe." + recipes.getChar().toUpperCase())));
 		}
 		
-		if(Utils.getConfig().getBoolean("recipes.enable")) {
+		if(Utils.getConfig().getBoolean("recipes")) {
 			Recipes.createParachuteRecipe();
 			Recipes.createRocketRecipe();
 		}
@@ -100,13 +105,43 @@ public class Rocket extends JavaPlugin {
 		getCommand("parachute").setExecutor(new ParachuteCommand());
 	}
 	
+	private void loadWarpsConfig() {
+		Utils.getWarpsConfiguration().options().header("In this file you can save warps!");
+		
+		Utils.getWarpsConfiguration().addDefault("warps", "");
+		
+		Utils.getWarpsConfiguration().options().copyDefaults(true);
+		
+		try {
+			Utils.getWarpsConfiguration().save(Utils.getWarpFile());
+		} catch (IOException e) {
+			Bukkit.getConsoleSender().sendMessage("§cThe warps.yml could not be saved! Restart your Server!");
+			e.printStackTrace();
+		}
+	}
+	
+	private void loadWarps() {
+		String[] warps = Utils.getWarpsConfiguration().getString("warps").split(";");
+		
+		for(String w : warps) {
+			Warp warp = new Warp(w);
+			
+			Location location = warp.getLocationByConfig();
+						
+			if(location != null) {
+				warp.setLocation(warp.getLocationByConfig());
+				Utils.getWarps().add(warp);				
+			}
+		}
+	}
+	
 	private void loadConfig() {
 		Utils.getConfig().options().header("In this file you can edit some settings!");
 		
 		Utils.getConfig().addDefault("heigh_of_rockettrip", 60);
 		Utils.getConfig().addDefault("certain_worlds", false);		
 		Utils.getConfig().addDefault("worlds", "world,world_nether");
-		Utils.getConfig().addDefault("recipes.enable", true);
+		Utils.getConfig().addDefault("recipes", true);
 		
 		Utils.getConfig().addDefault("rocket.item.name", "&cRocket");
 		Utils.getConfig().addDefault("rocket.item.type", "LEVER");
@@ -157,6 +192,28 @@ public class Rocket extends JavaPlugin {
 		Utils.getMessages().addDefault("prefix", "&8[&5Rocket&8] ");
 		Utils.getMessages().addDefault("noPermission", "&cYou can not do this!");
 		Utils.getMessages().addDefault("console", "&cOnly a player can use that command!");
+		
+		Utils.getMessages().addDefault("command.help.header", "&8==========&5[Rocket&8]==========");
+		Utils.getMessages().addDefault("command.help.line01", "&7/rocket item - &5Get the rocket item");
+		Utils.getMessages().addDefault("command.help.line02", "&7/rocket list- &5List all warps");
+		Utils.getMessages().addDefault("command.help.line03", "&7/rocket <warp> - &5Warp to warp");
+		Utils.getMessages().addDefault("command.help.line04", "&7/rocket set <warp> - &5Set a warp");
+		Utils.getMessages().addDefault("command.help.line05", "&7/rocket remove <warp> - &5Remove a warp");
+		Utils.getMessages().addDefault("command.help.footer", "&8============================");
+		
+		Utils.getMessages().addDefault("command.warp.list.header", "&aThere are the following warps:");
+		Utils.getMessages().addDefault("command.warp.list.line01", "&a> [WARPS]");
+
+		Utils.getMessages().addDefault("command.warp.set.successful", "&aYou set the warp &e[WARP]&a!");
+		Utils.getMessages().addDefault("command.warp.set.failed.save", "&cThe warp &e[WARP] &ccould not be set!");
+
+		Utils.getMessages().addDefault("command.warp.remove.successful", "&aYou removed the warp &e[WARP]&a!");
+		Utils.getMessages().addDefault("command.warp.remove.failed.save", "&cThe warp &e[WARP] &ccould not be removed!");
+		Utils.getMessages().addDefault("command.warp.remove.failed.notexists", "&cThe warp &e[WARP] &cdoes not exists!");
+		
+		Utils.getMessages().addDefault("command.warp.teleport.successful", "&aYou are now at warp &e[WARP]&a!");
+		Utils.getMessages().addDefault("command.warp.teleport.failed", "&cThe warp &e[WARP] &cdoes not exists!");
+		Utils.getMessages().addDefault("command.warp.teleport.failed_certain_worlds", "&cIn your world are rockets forbidden!");
 		
 		Utils.getMessages().addDefault("rocket.started", "&aRocket started!");
 		Utils.getMessages().addDefault("rocket.already_started", "&cThe rocket has been started! You can not activate them again!");

@@ -2,8 +2,14 @@ package de.mauricius17.rocket.enums;
 
 public enum Permissions {
 
-	PERMISSIONUSECOMMAND("rocket.command"),
-	PERMISSIONUSEROCKET("rocket.use");
+	GETROCKETITEM("rocket.item"),
+	GETPARACHUTEITEM("parachute.item"),
+	USEROCKET("rocket.use"),
+	USEPARACHUTE("parachute.use"),
+	LISTWARPS("rocket.warp.list"),
+	SETWARP("rocket.warp.set"),
+	REMOVEWARP("rocket.warp.remove"),
+	TELEPORTTOWARP("rocket.warp.teleport");
 	
 	private String permission;
 	

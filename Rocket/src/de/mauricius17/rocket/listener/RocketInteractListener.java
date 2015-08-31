@@ -25,7 +25,7 @@ public class RocketInteractListener implements Listener {
 		if(e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
 			if(e.getItem() != null && e.getItem().hasItemMeta()) {
 				if(e.getItem().getItemMeta().getDisplayName().equals(Utils.getRocketName()) && e.getItem().getType().equals(Utils.getRocketItem())) {
-					if(p.hasPermission(Permissions.PERMISSIONUSEROCKET.getPermission())) {						
+					if(p.hasPermission(Permissions.USEROCKET.getPermission())) {						
 						if(Utils.getCertainWorlds().equals(CertainWorlds.ON)) {
 							String[] worlds = Utils.getWorlds().split(",");
 							

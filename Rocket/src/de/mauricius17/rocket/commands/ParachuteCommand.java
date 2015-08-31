@@ -23,7 +23,7 @@ public class ParachuteCommand implements CommandExecutor {
 		
 		Player p = (Player) sender;
 		
-		if(p.hasPermission(Permissions.PERMISSIONUSECOMMAND.getPermission())) {
+		if(p.hasPermission(Permissions.GETPARACHUTEITEM.getPermission())) {
 			ItemStack item = Items.getItemStack(Utils.getParachuteItem(), Utils.getParachuteName(), 1, (byte) 0);
 			p.getInventory().addItem(item);
 			p.sendMessage(Utils.getPrefix() + ChatColor.translateAlternateColorCodes('&', Utils.getMessages().getString("parachute.item")));

@@ -23,7 +23,7 @@ public class ParachuteInteractListener implements Listener {
 		if(e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
 			if(e.getItem() != null && e.getItem().hasItemMeta()) {
 				if(e.getItem().getItemMeta().getDisplayName().equals(Utils.getParachuteName()) && e.getItem().getType().equals(Utils.getParachuteItem())) {
-					if(p.hasPermission(Permissions.PERMISSIONUSEROCKET.getPermission())) {						
+					if(p.hasPermission(Permissions.USEPARACHUTE.getPermission())) {						
 						if(Utils.getCertainWorlds().equals(CertainWorlds.ON)) {
 							String[] worlds = Utils.getWorlds().split(",");
 							
