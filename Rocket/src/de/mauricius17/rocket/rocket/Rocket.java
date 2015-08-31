@@ -54,9 +54,6 @@ public class Rocket {
 	}
 	
 	public void start(int blockHigh, RocketInterface onRocketDestroy) {		
-		System.out.println(Utils.getHeightOfTrip());
-		System.out.println(blockHigh);
-		System.out.println(blocks[0].getLocation().getY());
 		final int y = blockHigh + blocks[0].getLocation().getBlockY();
 		
 		this.taskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(instance, new Runnable() {
